@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Selección de Hogwarts</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">🏰 Cuestionario de Selección de Hogwarts 🏰</h1>
+            <p class="subtitle">¡Descubre a qué casa perteneces!</p>
+        </header>
+
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <div class="house-badges">
+                    <div class="house-badge gryffindor">🦁</div>
+                    <div class="house-badge slytherin">🐍</div>
+                    <div class="house-badge ravenclaw">🦅</div>
+                    <div class="house-badge hufflepuff">🦡</div>
+                </div>
+                <h2>Bienvenido al Sombrero Seleccionador</h2>
+                <p>Responde estas preguntas con honestidad y descubrirás tu verdadera casa de Hogwarts.</p>
+                <button id="start-btn" class="btn btn-primary">Comenzar Cuestionario</button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="progress-bar">
+                <div id="progress" class="progress-fill"></div>
+            </div>
+            <div id="question-container" class="question-container">
+                <h2 id="question-text" class="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+            </div>
+            <div class="navigation">
+                <span id="question-counter" class="counter"></span>
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <div class="result-content">
+                <div id="house-crest" class="house-crest"></div>
+                <h2 id="house-name" class="house-name"></h2>
+                <p id="house-description" class="house-description"></p>
+                <div id="house-traits" class="house-traits"></div>
+                <button id="restart-btn" class="btn btn-primary">Volver a Intentar</button>
+                <button id="share-btn" class="btn btn-secondary">Compartir Resultado</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
