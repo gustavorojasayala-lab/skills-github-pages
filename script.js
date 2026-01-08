@@ -3,30 +3,50 @@ const houses = {
     gryffindor: {
         name: 'Gryffindor',
         emoji: '🦁',
-        description: '¡Felicidades! Perteneces a Gryffindor, la casa de los valientes y atrevidos. Los Gryffindor son conocidos por su coraje, determinación y caballerosidad.',
+        description: '¡Felicidades! Perteneces a Gryffindor, la casa de los valientes y atrevidos. Los Gryffindor son conocidos por su coraje, determinación y caballerosidad. Tu valentía te define y nunca te echas atrás ante un desafío.',
         traits: ['Valiente', 'Audaz', 'Leal', 'Caballeroso', 'Determinado'],
-        color: 'gryffindor'
+        color: 'gryffindor',
+        famousWizards: ['Harry Potter', 'Hermione Granger', 'Albus Dumbledore', 'Ron Weasley', 'Minerva McGonagall'],
+        commonRoom: 'Torre de Gryffindor con vista a los terrenos',
+        founder: 'Godric Gryffindor',
+        element: 'Fuego',
+        animal: 'León'
     },
     slytherin: {
         name: 'Slytherin',
         emoji: '🐍',
-        description: '¡Felicidades! Perteneces a Slytherin, la casa de los astutos y ambiciosos. Los Slytherin son conocidos por su astucia, ambición y liderazgo.',
+        description: '¡Felicidades! Perteneces a Slytherin, la casa de los astutos y ambiciosos. Los Slytherin son conocidos por su astucia, ambición y liderazgo. Sabes lo que quieres y cómo conseguirlo.',
         traits: ['Astuto', 'Ambicioso', 'Líder', 'Ingenioso', 'Determinado'],
-        color: 'slytherin'
+        color: 'slytherin',
+        famousWizards: ['Severus Snape', 'Draco Malfoy', 'Merlin', 'Tom Riddle', 'Horace Slughorn'],
+        commonRoom: 'Mazmorras bajo el Lago Negro',
+        founder: 'Salazar Slytherin',
+        element: 'Agua',
+        animal: 'Serpiente'
     },
     ravenclaw: {
         name: 'Ravenclaw',
         emoji: '🦅',
-        description: '¡Felicidades! Perteneces a Ravenclaw, la casa de los sabios e ingeniosos. Los Ravenclaw son conocidos por su inteligencia, creatividad y amor por el conocimiento.',
+        description: '¡Felicidades! Perteneces a Ravenclaw, la casa de los sabios e ingeniosos. Los Ravenclaw son conocidos por su inteligencia, creatividad y amor por el conocimiento. Tu mente es tu mejor arma.',
         traits: ['Inteligente', 'Creativo', 'Sabio', 'Curioso', 'Ingenioso'],
-        color: 'ravenclaw'
+        color: 'ravenclaw',
+        famousWizards: ['Luna Lovegood', 'Cho Chang', 'Filius Flitwick', 'Rowena Ravenclaw', 'Gilderoy Lockhart'],
+        commonRoom: 'Torre de Ravenclaw con biblioteca privada',
+        founder: 'Rowena Ravenclaw',
+        element: 'Aire',
+        animal: 'Águila'
     },
     hufflepuff: {
         name: 'Hufflepuff',
         emoji: '🦡',
-        description: '¡Felicidades! Perteneces a Hufflepuff, la casa de los leales y trabajadores. Los Hufflepuff son conocidos por su lealtad, paciencia y ética de trabajo.',
+        description: '¡Felicidades! Perteneces a Hufflepuff, la casa de los leales y trabajadores. Los Hufflepuff son conocidos por su lealtad, paciencia y ética de trabajo. Valoras la amistad por encima de todo.',
         traits: ['Leal', 'Trabajador', 'Paciente', 'Justo', 'Amable'],
-        color: 'hufflepuff'
+        color: 'hufflepuff',
+        famousWizards: ['Newt Scamander', 'Cedric Diggory', 'Nymphadora Tonks', 'Pomona Sprout', 'Helga Hufflepuff'],
+        commonRoom: 'Cerca de las cocinas, ambiente acogedor',
+        founder: 'Helga Hufflepuff',
+        element: 'Tierra',
+        animal: 'Tejón'
     }
 };
 
@@ -126,6 +146,7 @@ const questions = [
 
 // Variables del estado del juego
 let currentQuestion = 0;
+let quizStartTime = 0;
 let houseScores = {
     gryffindor: 0,
     slytherin: 0,
@@ -152,13 +173,30 @@ const houseTraits = document.getElementById('house-traits');
 // Event Listeners
 startBtn.addEventListener('click', startQuiz);
 restartBtn.addEventListener('click', resetQuiz);
-shareBtn.addEventListener('click', shareResult);
+shareBtn.addEventListener('click', () => shareResult('copy'));
+
+// Event listeners para compartir en redes sociales (se configuran después de mostrar resultado)
+function setupSocialShareButtons() {
+    const shareTwitter = document.getElementById('share-twitter');
+    const shareFacebook = document.getElementById('share-facebook');
+    const shareWhatsApp = document.getElementById('share-whatsapp');
+
+    if (shareTwitter) shareTwitter.addEventListener('click', () => shareResult('twitter'));
+    if (shareFacebook) shareFacebook.addEventListener('click', () => shareResult('facebook'));
+    if (shareWhatsApp) shareWhatsApp.addEventListener('click', () => shareResult('whatsapp'));
+}
 
 // Funciones principales
 function startQuiz() {
+    quizStartTime = Date.now();
     welcomeScreen.classList.remove('active');
     quizScreen.classList.add('active');
     showQuestion();
+
+    // Track quiz start
+    if (typeof analytics !== 'undefined') {
+        analytics.trackQuizStart('house');
+    }
 }
 
 function showQuestion() {
@@ -218,6 +256,9 @@ function showResult() {
     quizScreen.classList.remove('active');
     resultScreen.classList.add('active');
 
+    // Calcular tiempo transcurrido
+    const timeSpent = Math.floor((Date.now() - quizStartTime) / 1000);
+
     // Determinar la casa ganadora
     let maxScore = 0;
     let winningHouse = '';
@@ -244,8 +285,31 @@ function showResult() {
     houseName.style.color = getHouseColor(house.color);
     houseDescription.textContent = house.description;
 
+    // Mostrar porcentajes de compatibilidad con todas las casas
+    const houseScoresContainer = document.getElementById('house-scores');
+    if (houseScoresContainer) {
+        houseScoresContainer.innerHTML = '<h3 style="margin-top: 20px;">📊 Tu Compatibilidad con Cada Casa:</h3>';
+        const totalQuestions = questions.length;
+
+        Object.keys(houseScores).sort((a, b) => houseScores[b] - houseScores[a]).forEach(houseKey => {
+            const percentage = Math.round((houseScores[houseKey] / totalQuestions) * 100);
+            const scoreBar = document.createElement('div');
+            scoreBar.className = 'score-bar';
+            scoreBar.innerHTML = `
+                <div class="score-label">
+                    ${houses[houseKey].emoji} ${houses[houseKey].name}
+                </div>
+                <div class="score-bar-container">
+                    <div class="score-bar-fill ${houseKey}" style="width: ${percentage}%"></div>
+                </div>
+                <div class="score-percentage">${percentage}%</div>
+            `;
+            houseScoresContainer.appendChild(scoreBar);
+        });
+    }
+
     // Mostrar rasgos
-    houseTraits.innerHTML = '';
+    houseTraits.innerHTML = '<h3 style="margin-top: 20px;">✨ Tus Cualidades:</h3>';
     house.traits.forEach((trait, index) => {
         const traitElement = document.createElement('div');
         traitElement.className = 'trait';
@@ -263,6 +327,32 @@ function showResult() {
             }, 50);
         }, index * 100);
     });
+
+    // Mostrar personajes famosos
+    const famousContainer = document.getElementById('famous-characters');
+    if (famousContainer && house.famousWizards) {
+        famousContainer.innerHTML = '<h3 style="margin-top: 20px;">🌟 Magos Famosos de ' + house.name + ':</h3>';
+        const wizardsList = document.createElement('div');
+        wizardsList.className = 'famous-wizards-list';
+        wizardsList.innerHTML = house.famousWizards.map(wizard =>
+            `<span class="famous-wizard">${wizard}</span>`
+        ).join('');
+        famousContainer.appendChild(wizardsList);
+    }
+
+    // Configurar botones de compartir
+    setupSocialShareButtons();
+
+    // Guardar en gamification
+    if (typeof gamification !== 'undefined') {
+        gamification.recordQuizCompletion('house', winningHouse);
+        gamification.displayAchievements('achievements-container');
+    }
+
+    // Track analytics
+    if (typeof analytics !== 'undefined') {
+        analytics.trackQuizCompleted('house', winningHouse, timeSpent);
+    }
 }
 
 function resetQuiz() {
@@ -279,37 +369,82 @@ function resetQuiz() {
     progress.style.width = '0%';
 }
 
-function shareResult() {
+function shareResult(platform = 'copy') {
     const house = houseName.textContent;
-    const text = `¡Acabo de ser seleccionado para ${house} en el Cuestionario de Selección de Hogwarts! 🏰✨`;
+    const url = window.location.href.split('?')[0];
+    const shareUrl = `${url}?utm_source=${platform}&utm_medium=social&utm_campaign=${house.toLowerCase()}`;
+    const text = `¡Acabo de ser seleccionado para ${house} en el Test de Hogwarts! 🏰✨`;
+    const hashtags = 'Hogwarts,HarryPotter,' + house;
 
-    if (navigator.share) {
-        navigator.share({
-            title: 'Mi Casa de Hogwarts',
-            text: text,
-            url: window.location.href
-        }).catch(() => {
-            copyToClipboard(text);
-        });
-    } else {
-        copyToClipboard(text);
+    // Registrar en gamification
+    if (typeof gamification !== 'undefined') {
+        gamification.recordShare(platform);
+    }
+
+    // Track analytics
+    if (typeof analytics !== 'undefined') {
+        analytics.trackShare(platform, 'house', house);
+    }
+
+    switch(platform) {
+        case 'twitter':
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}&hashtags=${encodeURIComponent(hashtags)}`;
+            window.open(twitterUrl, '_blank', 'width=550,height=420');
+            break;
+
+        case 'facebook':
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}`;
+            window.open(facebookUrl, '_blank', 'width=550,height=420');
+            break;
+
+        case 'whatsapp':
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + shareUrl)}`;
+            window.open(whatsappUrl, '_blank');
+            break;
+
+        case 'copy':
+        default:
+            copyToClipboard(text + '\n' + shareUrl);
+            break;
     }
 }
 
 function copyToClipboard(text) {
+    // Intentar usar Clipboard API moderna
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showCopyNotification();
+        }).catch(() => {
+            fallbackCopyToClipboard(text);
+        });
+    } else {
+        fallbackCopyToClipboard(text);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
+    showCopyNotification();
+}
 
-    // Cambiar texto del botón temporalmente
-    const originalText = shareBtn.textContent;
-    shareBtn.textContent = '¡Copiado!';
-    setTimeout(() => {
-        shareBtn.textContent = originalText;
-    }, 2000);
+function showCopyNotification() {
+    const shareButton = document.getElementById('share-btn');
+    if (shareButton) {
+        const originalText = shareButton.textContent;
+        shareButton.textContent = '✅ ¡Copiado!';
+        shareButton.style.background = 'rgba(46, 204, 113, 0.3)';
+        setTimeout(() => {
+            shareButton.textContent = originalText;
+            shareButton.style.background = '';
+        }, 2000);
+    }
 }
 
 function getHouseColor(houseClass) {

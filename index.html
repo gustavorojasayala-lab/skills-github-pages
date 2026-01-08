@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuestionario de Selección de Hogwarts</title>
+
+    <!-- SEO Meta Tags -->
+    <title>Test de Hogwarts - ¿A qué Casa Perteneces? | Cuestionario Oficial del Sombrero Seleccionador</title>
+    <meta name="description" content="Descubre tu casa de Hogwarts con nuestro test oficial. ¿Eres Gryffindor, Slytherin, Ravenclaw o Hufflepuff? Más de 50,000 fans ya conocen su destino mágico. ¡Haz el quiz ahora gratis!">
+    <meta name="keywords" content="test hogwarts, casa hogwarts, quiz harry potter, sombrero seleccionador, gryffindor, slytherin, ravenclaw, hufflepuff, patronus, varita mágica">
+    <meta name="author" content="Mundo Mágico de Harry Potter">
+    <link rel="canonical" href="https://gustavorojasayala-lab.github.io/skills-github-pages/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gustavorojasayala-lab.github.io/skills-github-pages/">
+    <meta property="og:title" content="¿A qué Casa de Hogwarts Perteneces? | Test del Sombrero Seleccionador">
+    <meta property="og:description" content="Descubre tu verdadera casa de Hogwarts en solo 2 minutos. +50,000 fans ya conocen su destino mágico. ¿Gryffindor, Slytherin, Ravenclaw o Hufflepuff?">
+    <meta property="og:image" content="https://gustavorojasayala-lab.github.io/skills-github-pages/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gustavorojasayala-lab.github.io/skills-github-pages/">
+    <meta property="twitter:title" content="Test de Hogwarts - ¿Cuál es tu Casa?">
+    <meta property="twitter:description" content="Gryffindor, Slytherin, Ravenclaw o Hufflepuff - descubre tu casa en 10 preguntas. ¡Prueba gratis ahora!">
+    <meta property="twitter:image" content="https://gustavorojasayala-lab.github.io/skills-github-pages/twitter-card.jpg">
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quiz Hogwarts">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      "name": "Cuestionario de Selección de Hogwarts",
+      "description": "Test interactivo para descubrir tu casa de Hogwarts: Gryffindor, Slytherin, Ravenclaw o Hufflepuff",
+      "author": {
+        "@type": "Organization",
+        "name": "Mundo Mágico HP"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Harry Potter",
+        "description": "Casas de Hogwarts"
+      },
+      "educationalLevel": "Todos los públicos",
+      "inLanguage": "es",
+      "isAccessibleForFree": true,
+      "interactivityType": "active"
+    }
+    </script>
 </head>
 <body>
     <div class="stars"></div>
@@ -47,13 +105,38 @@
                 <div id="house-crest" class="house-crest"></div>
                 <h2 id="house-name" class="house-name"></h2>
                 <p id="house-description" class="house-description"></p>
+                <div id="house-scores" class="house-scores"></div>
                 <div id="house-traits" class="house-traits"></div>
-                <button id="restart-btn" class="btn btn-primary">Volver a Intentar</button>
-                <button id="share-btn" class="btn btn-secondary">Compartir Resultado</button>
+                <div id="famous-characters" class="famous-characters"></div>
+
+                <div class="share-buttons">
+                    <button id="share-twitter" class="btn btn-social btn-twitter">🐦 Twitter</button>
+                    <button id="share-facebook" class="btn btn-social btn-facebook">📘 Facebook</button>
+                    <button id="share-whatsapp" class="btn btn-social btn-whatsapp">💬 WhatsApp</button>
+                    <button id="share-btn" class="btn btn-secondary">📋 Copiar</button>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="restart-btn" class="btn btn-primary">🔄 Volver a Intentar</button>
+                    <a href="quizzes.html" class="btn btn-secondary">✨ Más Quizzes</a>
+                </div>
+
+                <div id="achievements-container" class="achievements-earned"></div>
             </div>
         </div>
     </div>
 
+    <!-- Navegación flotante de quizzes -->
+    <nav class="quiz-nav">
+        <a href="index.html" class="nav-item active" title="Casa de Hogwarts">🏰</a>
+        <a href="patronus.html" class="nav-item" title="Tu Patronus">✨</a>
+        <a href="wand.html" class="nav-item" title="Tu Varita">🪄</a>
+        <a href="quizzes.html" class="nav-item" title="Todos los Quizzes">🎯</a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="gamification.js"></script>
+    <script src="analytics.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

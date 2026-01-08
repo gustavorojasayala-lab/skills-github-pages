@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Patronus - ¿Cuál es tu Patronus? | Harry Potter</title>
+    <meta name="description" content="Descubre qué animal te protege como Patronus. Más de 30 patronus posibles basados en tu personalidad.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">✨ Descubre tu Patronus ✨</h1>
+            <p class="subtitle">¿Qué animal te protege de los Dementores?</p>
+        </header>
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h2>El Encantamiento Patronus</h2>
+                <p style="font-size: 1.1rem; margin: 20px 0;">El Patronus es una de las magias más poderosas. Responde estas preguntas para descubrir qué forma toma el tuyo.</p>
+                <button id="start-btn" class="btn btn-primary">✨ Invocar mi Patronus</button>
+            </div>
+        </div>
+        <div id="quiz-screen" class="screen">
+            <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+            <div id="question-container" class="question-container">
+                <h2 id="question-text" class="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+            </div>
+            <div class="navigation"><span id="question-counter" class="counter"></span></div>
+        </div>
+        <div id="result-screen" class="screen">
+            <div class="result-content">
+                <div id="patronus-animal" class="house-crest" style="font-size: 8rem; background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(200, 230, 255, 0.5));"></div>
+                <h2 id="patronus-name" class="house-name"></h2>
+                <p id="patronus-description" class="house-description"></p>
+                <div id="patronus-traits" class="house-traits"></div>
+                <div class="share-buttons">
+                    <button id="share-twitter" class="btn btn-social btn-twitter">🐦 Twitter</button>
+                    <button id="share-facebook" class="btn btn-social btn-facebook">📘 Facebook</button>
+                    <button id="share-whatsapp" class="btn btn-social btn-whatsapp">💬 WhatsApp</button>
+                    <button id="share-btn" class="btn btn-secondary">📋 Copiar</button>
+                </div>
+                <div class="action-buttons">
+                    <button id="restart-btn" class="btn btn-primary">🔄 Volver a Intentar</button>
+                    <a href="quizzes.html" class="btn btn-secondary">✨ Más Quizzes</a>
+                </div>
+                <div id="achievements-container" class="achievements-earned"></div>
+            </div>
+        </div>
+    </div>
+    <nav class="quiz-nav">
+        <a href="index.html" class="nav-item" title="Casa de Hogwarts">🏰</a>
+        <a href="patronus.html" class="nav-item active" title="Tu Patronus">✨</a>
+        <a href="wand.html" class="nav-item" title="Tu Varita">🪄</a>
+        <a href="quizzes.html" class="nav-item" title="Todos los Quizzes">🎯</a>
+    </nav>
+    <script src="gamification.js"></script>
+    <script src="analytics.js"></script>
+    <script src="patronus-quiz.js"></script>
+</body>
+</html>
