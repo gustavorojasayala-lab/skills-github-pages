@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos los Quizzes de Harry Potter | Tests Mágicos</title>
+    <meta name="description" content="Explora todos nuestros tests de Harry Potter: Casa de Hogwarts, Patronus, Varita Mágica y más. ¡Descubre tu perfil mágico completo!">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .quizzes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .quiz-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .quiz-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .quiz-card p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .quiz-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .status-available {
+            background: rgba(46, 204, 113, 0.3);
+            border: 1px solid rgba(46, 204, 113, 0.6);
+        }
+
+        .status-coming-soon {
+            background: rgba(149, 165, 166, 0.3);
+            border: 1px solid rgba(149, 165, 166, 0.6);
+        }
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">✨ Tests Mágicos de Harry Potter ✨</h1>
+            <p class="subtitle">Descubre tu perfil mágico completo</p>
+        </header>
+
+        <div class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 10px;">📊 Tu Progreso Mágico</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="quizzes-completed">0</div>
+                    <div class="stat-label">Quizzes Completados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="total-points">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="achievements-count">0</div>
+                    <div class="stat-label">Logros Desbloqueados</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quizzes-grid">
+            <a href="index.html" class="quiz-card">
+                <div class="quiz-icon">🏰</div>
+                <h2>Casa de Hogwarts</h2>
+                <p>Descubre si eres Gryffindor, Slytherin, Ravenclaw o Hufflepuff</p>
+                <span class="quiz-status status-available">✓ Disponible</span>
+            </a>
+
+            <a href="patronus.html" class="quiz-card">
+                <div class="quiz-icon">✨</div>
+                <h2>Tu Patronus</h2>
+                <p>Descubre qué animal te protege de los Dementores</p>
+                <span class="quiz-status status-available">✓ Disponible</span>
+            </a>
+
+            <a href="wand.html" class="quiz-card">
+                <div class="quiz-icon">🪄</div>
+                <h2>Tu Varita Mágica</h2>
+                <p>Encuentra la varita perfecta para ti: madera, núcleo y más</p>
+                <span class="quiz-status status-available">✓ Disponible</span>
+            </a>
+
+            <div class="quiz-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div class="quiz-icon">📖</div>
+                <h2>¿Qué Personaje Eres?</h2>
+                <p>Descubre con qué personaje de Harry Potter te identificas más</p>
+                <span class="quiz-status status-coming-soon">Próximamente</span>
+            </div>
+
+            <div class="quiz-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div class="quiz-icon">🏆</div>
+                <h2>Posición en Quidditch</h2>
+                <p>¿Buscador, Golpeador, Cazador o Guardián?</p>
+                <span class="quiz-status status-coming-soon">Próximamente</span>
+            </div>
+
+            <div class="quiz-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div class="quiz-icon">🎓</div>
+                <h2>Test de Conocimientos</h2>
+                <p>Pon a prueba todo lo que sabes sobre Harry Potter</p>
+                <span class="quiz-status status-coming-soon">Próximamente</span>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 50px 0;">
+            <a href="index.html" class="btn btn-primary">🏰 Comenzar con el Test de Casas</a>
+        </div>
+    </div>
+
+    <nav class="quiz-nav">
+        <a href="index.html" class="nav-item" title="Casa de Hogwarts">🏰</a>
+        <a href="patronus.html" class="nav-item" title="Tu Patronus">✨</a>
+        <a href="wand.html" class="nav-item" title="Tu Varita">🪄</a>
+        <a href="quizzes.html" class="nav-item active" title="Todos los Quizzes">🎯</a>
+    </nav>
+
+    <script src="gamification.js"></script>
+    <script>
+        // Mostrar estadísticas del usuario
+        if (typeof gamification !== 'undefined') {
+            const stats = gamification.getStats();
+            document.getElementById('quizzes-completed').textContent = stats.totalQuizzes;
+            document.getElementById('total-points').textContent = stats.totalPoints;
+            document.getElementById('achievements-count').textContent = stats.achievementsUnlocked + '/' + stats.totalAchievements;
+        }
+    </script>
+</body>
+</html>

@@ -366,6 +366,260 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* Barras de puntuación */
+.score-bar {
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 150px 1fr 60px;
+    gap: 10px;
+    align-items: center;
+}
+
+.score-label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.score-bar-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 25px;
+    overflow: hidden;
+}
+
+.score-bar-fill {
+    height: 100%;
+    transition: width 1s ease-out;
+    border-radius: 10px;
+}
+
+.score-bar-fill.gryffindor {
+    background: linear-gradient(90deg, var(--gryffindor-primary), var(--gryffindor-secondary));
+}
+
+.score-bar-fill.slytherin {
+    background: linear-gradient(90deg, var(--slytherin-primary), #2ecc71);
+}
+
+.score-bar-fill.ravenclaw {
+    background: linear-gradient(90deg, var(--ravenclaw-primary), var(--ravenclaw-secondary));
+}
+
+.score-bar-fill.hufflepuff {
+    background: linear-gradient(90deg, var(--hufflepuff-primary), #f39c12);
+}
+
+.score-percentage {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Personajes famosos */
+.famous-wizards-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.famous-wizard {
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Botones de compartir en redes sociales */
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0 20px 0;
+}
+
+.btn-social {
+    padding: 12px 25px;
+    font-size: 1rem;
+    min-width: 120px;
+}
+
+.btn-twitter {
+    background: rgba(29, 161, 242, 0.3);
+    border: 2px solid rgba(29, 161, 242, 0.6);
+}
+
+.btn-twitter:hover {
+    background: rgba(29, 161, 242, 0.5);
+}
+
+.btn-facebook {
+    background: rgba(24, 119, 242, 0.3);
+    border: 2px solid rgba(24, 119, 242, 0.6);
+}
+
+.btn-facebook:hover {
+    background: rgba(24, 119, 242, 0.5);
+}
+
+.btn-whatsapp {
+    background: rgba(37, 211, 102, 0.3);
+    border: 2px solid rgba(37, 211, 102, 0.6);
+}
+
+.btn-whatsapp:hover {
+    background: rgba(37, 211, 102, 0.5);
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Achievements */
+.achievements-earned {
+    margin-top: 30px;
+}
+
+.achievement-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 215, 0, 0.2);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 10px;
+    margin: 10px 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+}
+
+.achievement-details {
+    flex: 1;
+    text-align: left;
+}
+
+.achievement-details strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.achievement-details small {
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: -400px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 237, 78, 0.95));
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    max-width: 350px;
+    transition: right 0.3s ease-out;
+}
+
+.achievement-notification.show {
+    right: 20px;
+}
+
+.achievement-content {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.achievement-notification .achievement-icon {
+    font-size: 3rem;
+}
+
+.achievement-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+}
+
+.achievement-info p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+}
+
+.achievement-points {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Navegación flotante de quizzes */
+.quiz-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 50px;
+    display: flex;
+    gap: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+}
+
+.nav-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 237, 78, 0.4));
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
 @media (max-width: 768px) {
     .main-title {
         font-size: 1.8rem;
@@ -398,5 +652,38 @@ body {
     .btn {
         padding: 12px 30px;
         font-size: 1rem;
+    }
+
+    .score-bar {
+        grid-template-columns: 120px 1fr 50px;
+        font-size: 0.9rem;
+    }
+
+    .share-buttons {
+        flex-direction: column;
+    }
+
+    .btn-social {
+        width: 100%;
+    }
+
+    .quiz-nav {
+        bottom: 10px;
+        padding: 8px;
+    }
+
+    .nav-item {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+
+    .achievement-notification {
+        max-width: 90%;
+        right: -100%;
+    }
+
+    .achievement-notification.show {
+        right: 5%;
     }
 }

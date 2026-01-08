@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Varita Mágica - ¿Cuál es tu varita perfecta?</title>
+    <meta name="description" content="Descubre las características de tu varita mágica perfecta: madera, núcleo, longitud y flexibilidad.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">🪄 Tu Varita Mágica Perfecta 🪄</h1>
+            <p class="subtitle">La varita elige al mago...</p>
+        </header>
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h2>Ollivanders - Fabricantes de Varitas desde 382 a.C.</h2>
+                <p style="font-size: 1.1rem; margin: 20px 0;">"La varita elige al mago, señor Potter. Eso siempre ha estado claro para aquellos de nosotros que hemos estudiado la ciencia de las varitas."</p>
+                <button id="start-btn" class="btn btn-primary">🪄 Encontrar Mi Varita</button>
+            </div>
+        </div>
+        <div id="quiz-screen" class="screen">
+            <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+            <div id="question-container" class="question-container">
+                <h2 id="question-text" class="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+            </div>
+            <div class="navigation"><span id="question-counter" class="counter"></span></div>
+        </div>
+        <div id="result-screen" class="screen">
+            <div class="result-content">
+                <div class="house-crest" style="font-size: 8rem; background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(205, 133, 63, 0.5));">🪄</div>
+                <h2 id="wand-title" class="house-name"></h2>
+                <p id="wand-specs" style="font-size: 1.3rem; margin: 20px 0; font-style: italic;"></p>
+                <p id="wand-description" class="house-description"></p>
+                <div id="wand-traits" class="house-traits"></div>
+                <div class="share-buttons">
+                    <button id="share-twitter" class="btn btn-social btn-twitter">🐦 Twitter</button>
+                    <button id="share-facebook" class="btn btn-social btn-facebook">📘 Facebook</button>
+                    <button id="share-whatsapp" class="btn btn-social btn-whatsapp">💬 WhatsApp</button>
+                    <button id="share-btn" class="btn btn-secondary">📋 Copiar</button>
+                </div>
+                <div class="action-buttons">
+                    <button id="restart-btn" class="btn btn-primary">🔄 Volver a Intentar</button>
+                    <a href="quizzes.html" class="btn btn-secondary">✨ Más Quizzes</a>
+                </div>
+                <div id="achievements-container" class="achievements-earned"></div>
+            </div>
+        </div>
+    </div>
+    <nav class="quiz-nav">
+        <a href="index.html" class="nav-item" title="Casa de Hogwarts">🏰</a>
+        <a href="patronus.html" class="nav-item" title="Tu Patronus">✨</a>
+        <a href="wand.html" class="nav-item active" title="Tu Varita">🪄</a>
+        <a href="quizzes.html" class="nav-item" title="Todos los Quizzes">🎯</a>
+    </nav>
+    <script src="gamification.js"></script>
+    <script src="analytics.js"></script>
+    <script>
+const wandData = {
+    woods: {acebo: {name: 'Acebo', desc: 'La varita de Harry Potter. Perfecta para quienes enfrentan peligros espirituales.'}, vid: {name: 'Vid', desc: 'Para personas con objetivos elevados y visión de futuro.'}, tejo: {name: 'Tejo', desc: 'Rara y poderosa, para magos extraordinarios.'}, fresno: {name: 'Fresno', desc: 'Leal, nunca debe separarse de su dueño original.'}, sauco: {name: 'Saúco', desc: 'La madera más rara y poderosa de todas.'}},
+    cores: {fenix: {name: 'Pluma de Fénix', desc: 'El núcleo más raro. Gran rango de magia.'}, dragon: {name: 'Fibra de Corazón de Dragón', desc: 'El más poderoso. Aprende hechizos rápido.'}, unicornio: {name: 'Pelo de Unicornio', desc: 'El más fiel. Magia consistente.'}},
+    lengths: {corta: '9 pulgadas - Varita corta, personalidad modesta', media: '11 pulgadas - Longitud equilibrada y versátil', larga: '13 pulgadas - Varita larga, personalidad dramática'},
+    flexibility: {rigida: 'Rígida - Personalidad firme y decidida', flexible: 'Flexible - Personalidad adaptable', muy_flexible: 'Muy flexible - Personalidad creativa'}
+};
+
+const questions = [
+    {q: '¿Qué tipo de magia te atrae más?', opts: [{t: 'Defensa y protección', w: 'acebo', c: 'fenix'}, {t: 'Transformación y cambio', w: 'vid', c: 'dragon'}, {t: 'Sanación y ayuda', w: 'fresno', c: 'unicornio'}, {t: 'Magia oscura (con cuidado)', w: 'tejo', c: 'dragon'}]},
+    {q: 'Tu mayor cualidad es...', opts: [{t: 'Valentía frente al peligro', w: 'acebo', c: 'fenix'}, {t: 'Ambición y determinación', w: 'tejo', c: 'dragon'}, {t: 'Lealtad inquebrantable', w: 'fresno', c: 'unicornio'}, {t: 'Sabiduría y visión', w: 'vid', c: 'fenix'}]},
+    {q: '¿Cómo enfrentas los desafíos?', opts: [{t: 'Con coraje directo', w: 'acebo', l: 'media'}, {t: 'Con estrategia cuidadosa', w: 'vid', l: 'larga'}, {t: 'Con creatividad', w: 'sauco', f: 'muy_flexible'}, {t: 'Con determinación', w: 'tejo', f: 'rigida'}]},
+    {q: 'Tu estilo de aprendizaje es...', opts: [{t: 'Aprendo rápido y poderoso', c: 'dragon', f: 'rigida'}, {t: 'Aprendo de forma consistente', c: 'unicornio', f: 'flexible'}, {t: 'Tengo gran rango de habilidades', c: 'fenix', f: 'muy_flexible'}, {t: 'Aprendo con dificultad pero domino', w: 'tejo', l: 'larga'}]},
+    {q: 'Tu personalidad es...', opts: [{t: 'Modesta y reservada', l: 'corta', f: 'flexible'}, {t: 'Equilibrada y versátil', l: 'media', f: 'flexible'}, {t: 'Dramática y expresiva', l: 'larga', f: 'muy_flexible'}, {t: 'Firme y decidida', l: 'media', f: 'rigida'}]}
+];
+
+let curr = 0, start = 0, scores = {w: {}, c: {}, l: {}, f: {}};
+const el = {wel: document.getElementById('welcome-screen'), quiz: document.getElementById('quiz-screen'), res: document.getElementById('result-screen'), qt: document.getElementById('question-text'), oc: document.getElementById('options-container'), cnt: document.getElementById('question-counter'), prg: document.getElementById('progress')};
+
+document.getElementById('start-btn').addEventListener('click', () => { start = Date.now(); el.wel.classList.remove('active'); el.quiz.classList.add('active'); show(); if (typeof analytics !== 'undefined') analytics.trackQuizStart('wand'); });
+document.getElementById('restart-btn').addEventListener('click', () => { curr = 0; scores = {w: {}, c: {}, l: {}, f: {}}; el.res.classList.remove('active'); el.wel.classList.add('active'); el.prg.style.width = '0%'; });
+document.getElementById('share-btn').addEventListener('click', () => share('copy'));
+
+function show() {
+    const q = questions[curr];
+    el.qt.textContent = q.q;
+    el.cnt.textContent = 'Pregunta ' + (curr + 1) + ' de ' + questions.length;
+    el.prg.style.width = ((curr + 1) / questions.length * 100) + '%';
+    el.oc.innerHTML = '';
+    q.opts.forEach(o => {
+        const btn = document.createElement('div');
+        btn.className = 'option';
+        btn.textContent = o.t;
+        btn.addEventListener('click', () => { if (o.w) scores.w[o.w] = (scores.w[o.w] || 0) + 1; if (o.c) scores.c[o.c] = (scores.c[o.c] || 0) + 1; if (o.l) scores.l[o.l] = (scores.l[o.l] || 0) + 1; if (o.f) scores.f[o.f] = (scores.f[o.f] || 0) + 1; btn.classList.add('selected'); setTimeout(() => { curr++; if (curr < questions.length) show(); else showRes(); }, 500); });
+        el.oc.appendChild(btn);
+    });
+}
+
+function showRes() {
+    el.quiz.classList.remove('active'); el.res.classList.add('active');
+    const time = Math.floor((Date.now() - start) / 1000);
+    const wood = Object.keys(scores.w).reduce((a, b) => (scores.w[a] || 0) > (scores.w[b] || 0) ? a : b) || 'acebo';
+    const core = Object.keys(scores.c).reduce((a, b) => (scores.c[a] || 0) > (scores.c[b] || 0) ? a : b) || 'fenix';
+    const length = Object.keys(scores.l).reduce((a, b) => (scores.l[a] || 0) > (scores.l[b] || 0) ? a : b) || 'media';
+    const flex = Object.keys(scores.f).reduce((a, b) => (scores.f[a] || 0) > (scores.f[b] || 0) ? a : b) || 'flexible';
+    document.getElementById('wand-title').textContent = wandData.woods[wood].name + ' con ' + wandData.cores[core].name;
+    document.getElementById('wand-specs').textContent = wandData.lengths[length] + ', ' + wandData.flexibility[flex];
+    document.getElementById('wand-description').textContent = wandData.woods[wood].desc + ' ' + wandData.cores[core].desc;
+    document.getElementById('wand-traits').innerHTML = '<h3>Características de tu Varita:</h3><div class="trait">' + wandData.woods[wood].name + '</div><div class="trait">' + wandData.cores[core].name + '</div><div class="trait">' + wandData.lengths[length].split(' - ')[0] + '</div><div class="trait">' + wandData.flexibility[flex].split(' - ')[0] + '</div>';
+    setupShare();
+    if (typeof gamification !== 'undefined') { gamification.recordQuizCompletion('wand', wood + '_' + core); gamification.displayAchievements('achievements-container'); }
+    if (typeof analytics !== 'undefined') analytics.trackQuizCompleted('wand', wood, time);
+}
+
+function setupShare() {
+    document.getElementById('share-twitter')?.addEventListener('click', () => share('twitter'));
+    document.getElementById('share-facebook')?.addEventListener('click', () => share('facebook'));
+    document.getElementById('share-whatsapp')?.addEventListener('click', () => share('whatsapp'));
+}
+
+function share(p) {
+    const txt = 'Mi varita es: ' + document.getElementById('wand-title').textContent;
+    const url = window.location.href.split('?')[0] + '?utm_source=' + p;
+    if (typeof gamification !== 'undefined') gamification.recordShare(p);
+    if (p === 'twitter') window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(txt) + '&url=' + encodeURIComponent(url), '_blank');
+    else if (p === 'facebook') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
+    else if (p === 'whatsapp') window.open('https://wa.me/?text=' + encodeURIComponent(txt + ' ' + url), '_blank');
+    else { if (navigator.clipboard) navigator.clipboard.writeText(txt + '\n' + url); const btn = document.getElementById('share-btn'); if (btn) { const o = btn.textContent; btn.textContent = 'Copiado!'; setTimeout(() => btn.textContent = o, 2000); } }
+}
+    </script>
+</body>
+</html>
